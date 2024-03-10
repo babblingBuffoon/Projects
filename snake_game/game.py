@@ -15,18 +15,18 @@ class Game:
         self.score = Score()       
 
 
-    def update(self):
+    def update(self) -> None:
         self.draw_elements()
         self.player.move_snake()
         if self.player.fruit_eating(self.fruit): self.score.update_score() 
         self.game_over_check() 
         
-    def draw_elements(self):
+    def draw_elements(self) -> None:
         self.player.draw_snake()
         self.fruit.draw_fruit()
         self.score.draw_score_board()
 
-    def game_over_check(self):
+    def game_over_check(self) -> None:
         for i in self.player.body[1:]:
             if self.player.body[0] == i:
                 self.game_over()
@@ -47,19 +47,19 @@ class Player:
         self.direction = Vector2(1,0) #initial direction
         self.color = (255, 0, 0)
 
-    def draw_snake(self):   
+    def draw_snake(self) -> None:   
         for b in self.body:
             self.x_pos = b.x * block_size
             self.y_pos = b.y * block_size
             self.s = pygame.Rect(self.x_pos, self.y_pos, block_size, block_size)
             pygame.draw.rect(win , self.color, self.s)
 
-    def move_snake(self):
+    def move_snake(self) -> None:
         body_copy = self.body[:-1]
         body_copy.insert(0,body_copy[0] + self.direction)
         self.body = body_copy
 
-    def fruit_eating(self , fruit):                      
+    def fruit_eating(self , fruit) -> bool:                      
         if fruit.position == self.body[0]:
             fruit.position = fruit.random_pos()
             self.add_to_snake(fruit.position)
@@ -79,14 +79,14 @@ class Fruit:
         self.position = Vector2(self.x , self.y)
         
 
-    def random_pos(self):
+    def random_pos(self) -> None:
         x = random.randrange(0 , block_no-1)
         y = random.randrange(0 , block_no-1)
         p = Vector2(x, y)
         return p
     
 
-    def draw_fruit(self):
+    def draw_fruit(self) -> None:
         fruit_color = (141, 245, 66)
         f = pygame.Rect((self.position.x * block_size), (self.position.y * block_size), block_size, block_size)
         pygame.draw.rect(win , fruit_color, f)
@@ -99,7 +99,7 @@ class Score:
         self.score = 0
         self.position = (1, 1)
 
-    def draw_score_board(self) -> object:
+    def draw_score_board(self) -> None:
         text = self.font.render(f'Score: {self.score}', True, (125, 124, 121))
         text.set_alpha(150)
         win.blit(text , self.position)
