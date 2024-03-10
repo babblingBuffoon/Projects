@@ -1,14 +1,4 @@
-
-#game loops infinite unless quit
-#every change on screen needs to update screen
-#get snake movement on x , y axis with user input
-#random food generator for snake inside display window
-#create a counter system for snake to increase with every food block that eats
-#create colision system when snake crosses itself to terminate game - work in progress
-#no colision system for display
-#
-
-
+# 1st attempt at the game. no oop concepts.
 
 import pygame
 from pygame.math import Vector2
@@ -23,15 +13,10 @@ win = pygame.display.set_mode((block_size*block_no, block_size*block_no))
 pygame.display.set_caption("Snake Game") 
 
 
-
-
-
-
-
 ######################################################### snake zone
 
 snake_color = (255, 0, 0)
-snake_body = [Vector2(1, 3), Vector2(2,3) , Vector2(3,3)] #initial position and lenght of the snake
+snake_body = [Vector2(3, 3), Vector2(2,3) , Vector2(1,3)] #initial position and lenght of the snake
 direction = Vector2(1 ,0)
 
 def draw_snake():
@@ -85,6 +70,7 @@ def food_collision_check():
 
 def snake_back_movement():
     if snake_body[0] == snake_body[1] - direction:
+        print('f')
         return True
         
 
@@ -111,7 +97,7 @@ def boundaries_check():
 score = 0
 score_increment = 1
 
-font = pygame.font.Font(None, 50)
+font = pygame.font.SysFont(None, 40)
 
 def update_score():
    global score
@@ -136,6 +122,8 @@ while run:
             run = False
     pygame.time.delay(75)
     win.fill((0,0,0))
+
+
     score_board()
     
 
@@ -159,7 +147,7 @@ while run:
     
     if snake_back_movement():
         direction = - direction
-    
+
     if snake_self_collision():
         run = False
         print('collision')

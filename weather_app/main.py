@@ -7,7 +7,7 @@ import base64
 import json
 
 
-
+api_key = '74bd71a9fadb0b618021cfdcd69f68f7'
 
 
 default_location = 'Widnes'
@@ -50,8 +50,8 @@ def search_button():
     global btn_img
     global button
     search_button = StringVar()
-    btn_img = PhotoImage(file='ico\\search.png').subsample(20, 20)
-    button = Button(mainframe, text='Search' , image=btn_img, compound='left' , command= display_data , borderwidth=3, width=10 , font = f)
+    #btn_img = PhotoImage(file='search.png').subsample(20, 20)
+    button = Button(mainframe, text='Search' , compound='left' , command= display_data , borderwidth=3, width=10 , font = f)
     button.after(100, update)
     button.grid(column= 4, row= 1 , padx=5 , pady=0, sticky='nwes')
 
